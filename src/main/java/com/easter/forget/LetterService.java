@@ -13,11 +13,11 @@ public class LetterService {
     private final LetterRepository letterRepository;
 
     public LetterResponse readALetter(){
-        Optional<String> letterOptional = letterRepository.findById(1);
-        return new LetterResponse(letterOptional.get());
+        Optional<Letter> letterOptional = letterRepository.findByRandom();
+        return new LetterResponse(letterOptional.get().getLetter());
     }
 
     public void saveLetter(String letter){
-        letterRepository.save(letter);
+        letterRepository.save(new Letter(letter));
     }
 }
