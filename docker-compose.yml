@@ -1,6 +1,27 @@
 version: '3.3'
 
 services:
+  front:
+    image: easterfan/forget-front
+    restart: always
+    ports:
+      - '1234:1234'
+    expose:
+      - '1234'
+
+  back:
+    image: easterfan/forget
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/forget?autoReconnect=true&useSSL=false
+
+    expose:
+      - '8080'
+
   db:
     image: mysql:5.7.26
     restart: always
@@ -16,5 +37,6 @@ services:
     volumes:
       - data-mysql:/var/lib/mysql
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--lower_case_table_names=1']
+
 volumes:
   data-mysql:
