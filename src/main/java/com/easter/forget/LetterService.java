@@ -14,7 +14,12 @@ public class LetterService {
 
     public LetterResponse readALetter(){
         Optional<Letter> letterOptional = letterRepository.findByRandom();
-        return new LetterResponse(letterOptional.get().getLetter());
+        String originMessage = letterOptional.get().getLetter();
+        String message = originMessage.substring(originMessage.indexOf("\n"));
+
+        String title = originMessage.substring(0, originMessage.indexOf("\n"));
+
+        return new LetterResponse(title,message);
     }
 
     public void saveLetter(String letter){

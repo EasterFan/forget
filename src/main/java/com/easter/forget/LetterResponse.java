@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel("返回遗愿信息")
 public class LetterResponse {
+    private String title;
     private String message;
 }
